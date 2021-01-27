@@ -90,9 +90,9 @@
       </template>
       <div id="reports-container"></div>
       <script>
-        const client = stitch.Stitch.initializeDefaultAppClient('sherlock-kuqcg');
-        const db = client.getServiceClient(stitch.RemoteMongoClient.factory, 'mongodb-atlas').db('mp2017');
-        const activitiesCollection = db.collection("activities");
+        const client = stitch.Stitch.initializeDefaultAppClient('boom-reifd');
+        const db = client.getServiceClient(stitch.RemoteMongoClient.factory, 'mongodb-atlas').db('boom');
+        const activitiesCollection = db.collection("scripts");
         const auth = client.auth;
 
         const users = auth.listUsers();

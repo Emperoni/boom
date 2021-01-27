@@ -251,7 +251,7 @@
               } // end of watcher.
             }).catch(err => {
               // console.log(`Failed to find any documents: ${err}`);
-              renderLogin('Failed to find documents.');
+              renderLogin('Failed to find documents. ' + err);
             })
         }
 

@@ -83,7 +83,7 @@
               <div id="subjectDiv"><input type="text" id="subjectInput" class="insertable" placeholder="Enter activity subject"></div>
               <div id="descriptionDiv"><input type="text" id="descriptionInput" class="insertable"></div>
               <p class="close">X</p>
-              <div id="actionsDiv"><button id="insertActivity" class="insertActivity actionButton">Add Activity</button><button id="cancel" class="cancel actionButton">Cancel</button></div>
+              <div id="actionsDiv"><button id="insertDocument" class="insertActivity actionButton">Add Document</button><button id="cancel" class="cancel actionButton">Cancel</button></div>
             </div>
           </div>
         </div>
@@ -236,7 +236,7 @@
                     updateCard.setAttribute('id', event.fullDocument._id);
                     // console.log(updateCard);
                   } else if (event.fullDocument) {
-                    let insertCard = document.createElement('activity-card');
+                    let insertCard = document.createElement('document-card');
                     insertCard.setAttribute('subject', event.fullDocument.subject);
                     insertCard.setAttribute('description', event.fullDocument.description);
                     insertCard.setAttribute('id', event.fullDocument._id);

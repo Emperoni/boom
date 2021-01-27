@@ -215,8 +215,8 @@
           // Returns a promise that resolves to the authenticated user - ,"userId": '5e9bda09f4bc8e3f31e2fbcd'
         function getActivities(authenticatedUser) {
           // console.log(authenticatedUser);
-          // console.log(authenticatedUser.id);
-          db.collection('activities').find({"subject": {$exists: true},"ownerId": authenticatedUser.id}).toArray()
+          console.log(authenticatedUser.id);
+          db.collection('scripts').find({"subject": {$exists: true},"ownerId": authenticatedUser.id}).toArray()
             .then(docs => {
               // console.log(docs);
               // console.log(authenticatedUser);

@@ -216,7 +216,7 @@
         function getActivities(authenticatedUser) {
           // console.log(authenticatedUser);
           console.log(authenticatedUser.id);
-          db.collection('scripts').find({"subject": {$exists: true},"ownerId": authenticatedUser.id}).toArray()
+          db.collection('scripts').find({"subject": {$exists: true},"userId": authenticatedUser.id}).toArray()
             .then(docs => {
               // console.log(docs);
               // console.log(authenticatedUser);

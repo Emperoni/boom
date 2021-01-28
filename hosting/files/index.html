@@ -92,7 +92,7 @@
       <script>
         const client = stitch.Stitch.initializeDefaultAppClient('boom-reifd');
         const db = client.getServiceClient(stitch.RemoteMongoClient.factory, 'mongodb-atlas').db('boom');
-        const activitiesCollection = db.collection("scripts");
+        const collection = db.collection("scripts");
         const auth = client.auth;
 
         const users = auth.listUsers();
@@ -113,9 +113,9 @@
         // this determination would require the users object.
 
         //////////////////
-        // Otherwise, check that there is an authenticatedUser cookie. If yes, pass it to getActivities.
+        // Otherwise, check that there is an authenticatedUser cookie. If yes, pass it to getDocuments.
         // this can be put inside a shouldRenderLogin function and return false.
-        // a false value from shouldRenderLogin login means calling getActivities with the user from the cookie.
+        // a false value from shouldRenderLogin login means calling getDocuments with the user from the cookie.
         // this is done without authentication and therefore shouldRenderLogin is correctly false.
         // What about a check of whether user (previously authenticatedUser that is) is pointing to a user that has
         // authentication expired? Does this mean checking the users in a loop? Yes. Is there an expiration
@@ -180,7 +180,7 @@
           }
           // after we have checked all users, user will point to the last user. That is incorrect.
           if(i===users.length){
-            // console.log(i, users.length, 'getActivities should go here.');
+            // console.log(i, users.length, 'getDocuments should go here.');
             // console.log('here', shouldRenderLogin);
             if(shouldRenderLogin === true){
               renderLogin(renderLoginMessage)
@@ -189,7 +189,7 @@
               // so this code should work but is dangerous.
               // console.log(shouldRenderLogin);
               // console.log(useThiUser);
-              getActivities(useThisUser);
+              getDocuments(useThisUser);
             }
           }
         })
@@ -202,30 +202,27 @@
           .then(authenticatedUser => {
             // console.log(authenticatedUser, 'It will set cookie here');
             const pageTitle = document.getElementById('pageTitle');
-            pageTitle.setAttribute('ownerId', authenticatedUser.id);
-            document.cookie = "theLoggedInUser=" + email + ";" + "expires="+ new Date(new Date().getTime()+120*60*1000).toGMTString()+";path=/";
-            //document.cookie = "theLoggedInUserId=" + authenticatedUser.id + ";" + "expires="+ new Date(new Date().getTime()+120*60*1000).toGMTString()+";path=/";
-            // theLoggedInUser needs to be the entire authenticatedUser. Not just the e-mail or id.
-            getActivities(authenticatedUser)
+            pageTitle.setAttribute('userId', authenticatedUser.id);
+            getDocuments(authenticatedUser)
           }).catch(err => {
             renderLoginMessage = err.message;
             renderLogin(renderLoginMessage)
           })
         }
           // Returns a promise that resolves to the authenticated user - ,"userId": '5e9bda09f4bc8e3f31e2fbcd'
-        function getActivities(authenticatedUser) {
+        function getDocuments(authenticatedUser) {
           // console.log(authenticatedUser);
           console.log(authenticatedUser.id);
           db.collection('scripts').find({"subject": {$exists: true},"userId": authenticatedUser.id}).toArray()
             .then(docs => {
               // console.log(docs);
               // console.log(authenticatedUser);
-              let activities = docs;
-              render(activities, authenticatedUser);
+              let documents = docs;
+              render(documents, authenticatedUser);
               watcher();
               async function watcher() {
                 // Create a change stream that watches the collection
-                const stream = await activitiesCollection.watch();
+                const stream = await collection.watch();
                 // Set up a change event handler function for the stream
                 stream.onNext((event) => {
                   // Handle the change events for all specified documents here
@@ -274,7 +271,7 @@
 
           })
           // these lines belong after this render.vTODO.
-          const insertActivity = document.getElementById('insertActivity');
+          const insertActivity = document.getElementById('insertDocument');
           // console.log(authenticatedUser);
           pageTitle.setAttribute('ownerId', authenticatedUser.id);
           // console.log(pageTitle);

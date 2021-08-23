@@ -1,0 +1,11 @@
+{
+    "name": "connectAws",
+    "type": "aws",
+    "config": {
+        "accessKeyId": "AKIAU2LKKDAMXINPAUUY"
+    },
+    "secret_config": {
+        "secretAccessKey": "awssecret"
+    },
+    "version": 1
+}

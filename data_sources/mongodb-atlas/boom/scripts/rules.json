@@ -5,7 +5,7 @@
         {
             "name": "owner",
             "apply_when": {
-                "userId": "%%user.id"
+                "ownerId": "%%user.id"
             },
             "read": true,
             "write": true,
@@ -17,13 +17,11 @@
         {
             "name": "non-owner",
             "apply_when": {},
-            "read": true,
-            "write": false,
+            "write": true,
             "insert": false,
             "delete": false,
             "search": true,
             "additional_fields": {}
         }
-    ],
-    "schema": {}
+    ]
 }

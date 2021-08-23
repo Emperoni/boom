@@ -1,0 +1,17 @@
+{
+    "name": "ec2",
+    "actions": [
+        "ec2:*"
+    ],
+    "when": {
+        "%%args.url.host": {
+            "%in": [
+                "marcopoloni.com",
+                "notfoundonamazon.com",
+                "ec2.us-west-2a.amazonaws.com",
+                "ec2.us-west-2b.amazonaws.com",
+                "ec2.us-west-2c.amazonaws.com"
+            ]
+        }
+    }
+}
